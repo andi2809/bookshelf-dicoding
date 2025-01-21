@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>To Do List</title>
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Tailwind -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				theme: {
+					extend: {
+						colors: {
+							clifford: "#da373d",
+						},
+						fontFamily: {
+							sans: ["Nunito", "sans-serif"], // Custom Font
+						},
+					},
+				},
+			};
+		</script>
+		<!-- Define Custom Font -->
+		<style>
+			/* Apply Global Font */
+			html {
+				font-family: "Playwrite India", sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<nav class="bg-gray-800 py-6">
+			<div
+				class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 text-sky-400 text-2xl font-bold"
+			>
+				Todo List
+			</div>
+		</nav>
+		<main class="px-8 mt-8">
+			<h2 class="text-lg font-semibold text-stone-700">
+				Selamat Datang Andi, Selamat Berproduktif
+			</h2>
+			<!-- card tambah -->
+			<div class="mx-auto w-96 py-4 px-6 rounded-xl shadow-lg">
+				<p class="text-2xl font-bold text-slate-900 text-center mb-4">
+					Tambah Target
+				</p>
+				<label for="target">Masukkan Target Hari Ini</label>
+				<input
+					class="mt-2 rounded-lg placeholder-slate-700 outline-none bg-cyan-500 border-cyan-950 border-2 py-4 px-4 w-10/12 flex"
+					placeholder="belajar coding"
+					type="text"
+					id="target"
+				/>
+				<br />
+				<label for="tanggal_selesai">Masukkan tanggal harus selesai</label>
+				<input
+					class="mt-2 rounded-lg placeholder-slate-700 outline-none bg-cyan-500 border-cyan-950 border-2 py-4 px-4 w-10/12 flex"
+					type="date"
+					id="tanggal_selesai"
+				/>
+				<button
+					id="get-date-btn"
+					class="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
+				>
+					Tambah Data
+				</button>
+				<p id="output" class="mt-4 text-lg"></p>
+			</div>
+			<!-- card - list yang harus dilakukan -->
+			<div class="mt-12 mx-auto w-96 py-4 px-6 rounded-xl shadow-lg">
+				<p class="text-2xl font-bold text-slate-900 text-center mb-4">
+					Yang harus dilakukan
+				</p>
+				<div class="do_next"></div>
+			</div>
+
+			<!-- card - list yang sudah dilakukan -->
+			<div class="mt-12 mx-auto w-96 py-4 px-6 rounded-xl shadow-lg">
+				<p class="text-2xl font-bold text-slate-900 text-center mb-4">
+					Yang sudah dilakukan
+				</p>
+				<div class="do_done"></div>
+			</div>
+		</main>
+	</body>
+	<script>
+		// Ambil elemen input, tombol, dan container
+		const inputNama = document.getElementById("target");
+		const inputTanggal = document.getElementById("tanggal_selesai");
+		const button = document.getElementById("get-date-btn");
+
+		// Div tempat menampilkan data
+		const listTarget = document.querySelector(".do_next");
+		const listTargetDone = document.querySelector(".do_done");
+
+		// Event listener untuk tombol tambah data
+		button.addEventListener("click", () => {
+			const targetValue = inputNama.value;
+			const selectedDate = inputTanggal.value;
+			let id = parseInt(localStorage.getItem("key")) || 0; // Ambil ID terakhir dari localStorage atau mulai dari 0
+
+			// Validasi input
+			if (selectedDate && targetValue) {
+				const inputDate = new Date(selectedDate); // Konversi input tanggal ke objek Date
+				const today = new Date(); // Ambil tanggal hari ini
+
+				// Set waktu ke 00:00:00 untuk perbandingan tanggal
+				today.setHours(0, 0, 0, 0);
+				inputDate.setHours(0, 0, 0, 0);
+
+				// Ambil data dari localStorage atau buat array baru jika belum ada
+				const dataTarget = JSON.parse(localStorage.getItem("dataTarget")) || []; // awalnya array kosong, abis itu diappend di line 139
+				const dataTargetDone =
+					JSON.parse(localStorage.getItem("dataTargetDone")) || []; // awalnya array kosong, abis itu diappend di line 144
+
+				// Increment ID untuk data baru
+				id++;
+				localStorage.setItem("key", id);
+
+				// Data baru yang akan ditambahkan
+				const newData = {
+					id,
+					name: targetValue,
+					date: selectedDate,
+				};
+
+				// Tentukan kategori berdasarkan tanggal
+				if (inputDate >= today) {
+					// Masukkan ke "do_next"
+					dataTarget.push(newData);
+					localStorage.setItem("dataTarget", JSON.stringify(dataTarget));
+					renderTasks(listTarget, dataTarget);
+				} else {
+					// Masukkan ke "do_done"
+					dataTargetDone.push(newData);
+					localStorage.setItem(
+						"dataTargetDone",
+						JSON.stringify(dataTargetDone)
+					);
+					renderTasks(listTargetDone, dataTargetDone);
+				}
+
+				// Reset input setelah data ditambahkan
+				inputNama.value = "";
+				inputTanggal.value = "";
+			} else {
+				alert("Silakan masukkan nama & pilih tanggal terlebih dahulu.");
+			}
+		});
+
+		// Fungsi untuk menghapus task berdasarkan ID
+		function deleteTaskById(id) {
+			// Ambil semua data dari localStorage
+			const dataTarget = JSON.parse(localStorage.getItem("dataTarget")) || [];
+			const dataTargetDone =
+				JSON.parse(localStorage.getItem("dataTargetDone")) || [];
+
+			// Filter data untuk menghapus task dengan ID yang diberikan
+			const updatedDataTarget = dataTarget.filter(
+				(task) => task.id !== parseInt(id)
+			);
+			const updatedDataTargetDone = dataTargetDone.filter(
+				(task) => task.id !== parseInt(id)
+			);
+
+			// Simpan data yang diperbarui ke localStorage
+			localStorage.setItem("dataTarget", JSON.stringify(updatedDataTarget));
+			localStorage.setItem(
+				"dataTargetDone",
+				JSON.stringify(updatedDataTargetDone)
+			);
+
+			// Perbarui tampilan
+			renderTasks(listTarget, updatedDataTarget);
+			renderTasks(listTargetDone, updatedDataTargetDone);
+		}
+
+		// Fungsi untuk menampilkan data di dalam elemen HTML
+		function renderTasks(container, tasks) {
+			container.innerHTML = ""; // Bersihkan isi container
+			tasks.forEach((task) => {
+				const taskElement = document.createElement("div");
+				taskElement.className = "task-item";
+				taskElement.innerHTML = `
+                  <div id="task-${task.id}">
+                      <strong>${task.name}</strong> - ${task.date}
+                      <br/>
+                      <button class="delete" data-id="${task.id}">Delete</button>
+                  </div>`;
+				container.appendChild(taskElement);
+			});
+
+			// Tambahkan event listener ke tombol delete
+			const deleteButtons = container.querySelectorAll(".delete");
+			deleteButtons.forEach((button) => {
+				button.addEventListener("click", (e) => {
+					const idToDelete = e.target.getAttribute("data-id");
+					deleteTaskById(idToDelete);
+				});
+			});
+		}
+
+		// Render data saat halaman dimuat
+		document.addEventListener("DOMContentLoaded", () => {
+			const dataTarget = JSON.parse(localStorage.getItem("dataTarget")) || [];
+			const dataTargetDone =
+				JSON.parse(localStorage.getItem("dataTargetDone")) || [];
+
+			renderTasks(listTarget, dataTarget);
+			renderTasks(listTargetDone, dataTargetDone);
+		});
+	</script>
+</html>
