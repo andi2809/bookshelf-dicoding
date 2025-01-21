@@ -5,129 +5,125 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Bookshelf App</title>
 
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Tailwind -->
+		<script src="https://cdn.tailwindcss.com"></script>
+
 		<!-- Impor script kamu di sini -->
 		<!-- Lampirkan `defer` jika pemanggilan dilakukan dalam <head> -->
 		<link rel="stylesheet" href="style.css" />
 		<script defer src="main.js"></script>
 	</head>
 	<body>
-		<header>
-			<h1>Bookshelf App</h1>
+		<header
+			class="md:mb-12 mb-8 md:mt-6 mt-4 md:py-8 py-4 md:px-12 px-8 rounded-lg border border-slate-200"
+		>
+			<h1 class="text-neutral-100 font-black text-xl">
+				Selamat Datang di <span class="text-primary-main"> Perpus </span>
+			</h1>
+			<h2 class="text-neutral-90 font-extrabold text-base">halo 👋</h2>
 		</header>
-
 		<main>
-			<section>
-				<h2>Tambah Buku Baru</h2>
-				<form id="bookForm" data-testid="bookForm">
-					<div>
-						<label for="bookFormTitle">Judul</label>
-						<input
-							id="bookFormTitle"
-							type="text"
-							required
-							data-testid="bookFormTitleInput"
-						/>
-					</div>
-					<div>
-						<label for="bookFormAuthor">Penulis</label>
-						<input
-							id="bookFormAuthor"
-							type="text"
-							required
-							data-testid="bookFormAuthorInput"
-						/>
-					</div>
-					<div>
-						<label for="bookFormYear">Tahun</label>
-						<input
-							id="bookFormYear"
-							type="number"
-							required
-							data-testid="bookFormYearInput"
-						/>
-					</div>
-					<div>
-						<label for="bookFormIsComplete">Selesai dibaca</label>
-						<input
-							id="bookFormIsComplete"
-							type="checkbox"
-							data-testid="bookFormIsCompleteCheckbox"
-						/>
-					</div>
-					<button
-						id="bookFormSubmit"
-						type="submit"
-						data-testid="bookFormSubmitButton"
+			<!-- Cards total books  -->
+			<div
+				class="flex md:items-center items-start md:justify-between justify-normal md:gap gap-4 md:flex-row flex-col"
+			>
+				<!-- card 1 -->
+				<div
+					class="card md:p-6 p-4 flex items-center gap-4 bg-neutral-10 rounded-xl"
+				>
+					<div
+						class="flex items-center justify-center p-2 rounded-lg"
+						style="background-color: rgba(212, 230, 251, 0.25)"
 					>
-						Masukkan Buku ke rak <span>Belum selesai dibaca</span>
-					</button>
-				</form>
-			</section>
-			<div><button class="bt"></button></div>
-			<section>
-				<h2>Cari Buku</h2>
-				<form id="searchBook" data-testid="searchBookForm">
-					<label for="searchBookTitle">Judul</label>
+						<img
+							src="assets/book-open.svg"
+							alt="icon buku terbuka"
+							class="icon-card"
+						/>
+					</div>
+					<div>
+						<p class="text-neutral-90 font-semibold text-base">Belum Dibaca</p>
+						<p class="text-neutral-100 font-black text-xs">100 buku</p>
+					</div>
+				</div>
+				<!-- card 2 -->
+				<div
+					class="card md:p-6 p-4 flex items-center gap-4 bg-neutral-10 rounded-xl"
+				>
+					<div
+						class="flex items-center justify-center p-2 rounded-lg"
+						style="background-color: rgba(212, 230, 251, 0.25)"
+					>
+						<img
+							src="assets/book-closed.svg"
+							alt="icon buku tertutup"
+							class="icon-card"
+						/>
+					</div>
+					<div>
+						<p class="text-neutral-90 font-semibold text-base">Total Dibaca</p>
+						<p class="text-neutral-100 font-black text-xs">100 buku</p>
+					</div>
+				</div>
+				<!-- card 3 -->
+				<div
+					class="card md:p-6 p-4 flex items-center gap-4 bg-neutral-10 rounded-xl"
+				>
+					<div
+						class="flex items-center justify-center p-2 rounded-lg"
+						style="background-color: rgba(212, 230, 251, 0.25)"
+					>
+						<img
+							src="assets/book-total.svg"
+							alt="icon buku ditumuk"
+							class="icon-card"
+						/>
+					</div>
+					<div>
+						<p class="text-neutral-90 font-semibold text-base">Total Buku</p>
+						<p class="text-neutral-100 font-black text-xs">100 buku</p>
+					</div>
+				</div>
+			</div>
+			<!-- container books -->
+
+			<div class="mt-6 bg-white rounded-xl p-6">
+				<div
+					class="header flex md:flex-row flex-col md:gap-0 gap-6 md:items-center items-start md:justify-between justify-normal"
+				>
+					<h1 class="text-neutral-100 font-black text-xl">Daftar Bacaan</h1>
 					<input
-						id="searchBookTitle"
 						type="text"
-						data-testid="searchBookFormTitleInput"
+						class="search px-3 py-4 rounded-md"
+						placeholder="Cari judul atau penulis"
 					/>
-					<button
-						id="searchSubmit"
-						type="submit"
-						data-testid="searchBookFormSubmitButton"
-					>
-						Cari
-					</button>
-				</form>
-			</section>
-
-			<section>
-				<h2>Belum selesai dibaca</h2>
-
-				<div id="incompleteBookList" data-testid="incompleteBookList">
-					<!-- 
-            Ini adalah struktur HTML untuk masing-masing buku.
-            Pastikan susunan elemen beserta atribut data-testid menyesuaikan seperti contoh ini.
-          -->
-					<div data-bookid="123123123" data-testid="bookItem">
-						<h3 data-testid="bookItemTitle">Judul Buku 1</h3>
-						<p data-testid="bookItemAuthor">Penulis: Penulis Buku 1</p>
-						<p data-testid="bookItemYear">Tahun: 2030</p>
-						<div>
-							<button data-testid="bookItemIsCompleteButton">
-								Selesai dibaca
-							</button>
-							<button data-testid="bookItemDeleteButton">Hapus Buku</button>
-							<button data-testid="bookItemEditButton">Edit Buku</button>
-						</div>
-					</div>
 				</div>
-			</section>
-
-			<section>
-				<h2>Selesai dibaca</h2>
-
-				<div id="completeBookList" data-testid="completeBookList">
-					<!-- 
-            Ini adalah struktur HTML untuk masing-masing buku.
-            Pastikan susunan elemen beserta atribut data-testid menyesuaikan seperti contoh ini.
-          -->
-					<div data-bookid="456456456" data-testid="bookItem">
-						<h3 data-testid="bookItemTitle">Judul Buku 2</h3>
-						<p data-testid="bookItemAuthor">Penulis: Penulis Buku 2</p>
-						<p data-testid="bookItemYear">Tahun: 2030</p>
-						<div>
-							<button data-testid="bookItemIsCompleteButton">
-								Selesai dibaca
-							</button>
-							<button data-testid="bookItemDeleteButton">Hapus Buku</button>
-							<button data-testid="bookItemEditButton">Edit Buku</button>
-						</div>
+				<div class="container-books mt-6">
+					<div class="left-container-books py-3">
+						<h5 class="text-neutral-100 font-black text-xl">Sudah Selesai</h5>
+						<table>
+							<thead>
+								<tr>
+									<th>No</th>
+									<th>Judul Buku</th>
+									<th>Penulis</th>
+									<th>Aksi</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
 					</div>
+					<div class="right-container-books"></div>
 				</div>
-			</section>
+			</div>
 		</main>
 	</body>
 </html>
