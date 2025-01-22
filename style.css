@@ -138,7 +138,6 @@ table {
 }
 body {
 	background-color: var(--neutral-20) !important;
-	max-width: 80% !important;
 	margin: 0 auto !important;
 	font-family: "Nunito", sans-serif !important;
 }
@@ -185,6 +184,9 @@ body {
 .text-neutral-100 {
 	color: var(--neutral-100) !important;
 }
+.bg-primary-main {
+	background-color: #2680eb !important;
+}
 .bg-neutral-10 {
 	background-color: var(--neutral-10) !important;
 }
@@ -194,6 +196,8 @@ body {
 header {
 	background-color: #fff;
 	box-shadow: 1px 1px 6px 0px #6b718c;
+	max-width: 80% !important;
+	margin: 32px auto;
 }
 
 .icon-card {
@@ -211,12 +215,86 @@ header {
 .search:focus {
 	outline: 2px solid rgb(152, 148, 148);
 }
+.container-search {
+	max-width: 80% !important;
+	margin: auto;
+}
+.container-books {
+	max-width: 90% !important;
+	margin: 0 auto;
+}
 table thead {
 	background-color: #f7f8f9;
 }
 th {
 	padding: 16px;
-	color: #42486c;
+	color: var(--neutral-100);
 	font-size: 14px;
 	font-weight: 800;
+}
+tr {
+	height: auto;
+}
+.btn-action {
+	border: 1px solid #e7e8ec;
+	padding: 10px;
+	border-radius: 8px;
+	background-color: #fff;
+	transition: all 0.2s ease-out;
+}
+.btn-action:hover {
+	background-color: #e0e0e0;
+}
+th {
+	text-align: start;
+}
+td {
+	vertical-align: middle;
+	text-align: center;
+}
+.dt-no {
+	width: 5%;
+}
+.td-judul {
+	text-align: start;
+	width: 30%;
+}
+
+.td-nama {
+	text-align: start;
+	width: 30%;
+}
+.td-aksi {
+	width: 25%;
+}
+@media screen and (max-width: 768px) {
+	.dt-no {
+		width: 5%;
+	}
+	.td-judul {
+		text-align: start;
+		width: 40%;
+	}
+
+	.td-nama {
+		text-align: start;
+		width: 35%;
+	}
+	.td-aksi {
+		width: 15%;
+	}
+}
+
+.modal-tambah-buku {
+	border-bottom: 1px solid var(--neutral-100);
+}
+
+input::placeholder {
+	color: #b4b7c5;
+	font-size: 12px;
+	font-weight: 800;
+}
+.judul-buku {
+	outline: none !important;
+	border: 1px solid var(--neutral-50);
 }

@@ -23,17 +23,18 @@
 	</head>
 	<body>
 		<header
-			class="md:mb-12 mb-8 md:mt-6 mt-4 md:py-8 py-4 md:px-12 px-8 rounded-lg border border-slate-200"
+			class="md:mb-12 md:mt-6 mt-4 md:py-8 py-4 md:px-12 px-8 rounded-lg border border-slate-200"
 		>
 			<h1 class="text-neutral-100 font-black text-xl">
 				Selamat Datang di <span class="text-primary-main"> Perpus </span>
 			</h1>
 			<h2 class="text-neutral-90 font-extrabold text-base">halo 👋</h2>
 		</header>
-		<main>
+		<main class="mb-12">
 			<!-- Cards total books  -->
 			<div
 				class="flex md:items-center items-start md:justify-between justify-normal md:gap gap-4 md:flex-row flex-col"
+				style="max-width: 80% !important; margin: 32px auto"
 			>
 				<!-- card 1 -->
 				<div
@@ -95,35 +96,187 @@
 			</div>
 			<!-- container books -->
 
-			<div class="mt-6 bg-white rounded-xl p-6">
+			<div class="mb-6 bg-white rounded-xl p-6 container-search">
 				<div
 					class="header flex md:flex-row flex-col md:gap-0 gap-6 md:items-center items-start md:justify-between justify-normal"
 				>
 					<h1 class="text-neutral-100 font-black text-xl">Daftar Bacaan</h1>
-					<input
-						type="text"
-						class="search px-3 py-4 rounded-md"
-						placeholder="Cari judul atau penulis"
-					/>
-				</div>
-				<div class="container-books mt-6">
-					<div class="left-container-books py-3">
-						<h5 class="text-neutral-100 font-black text-xl">Sudah Selesai</h5>
-						<table>
-							<thead>
-								<tr>
-									<th>No</th>
-									<th>Judul Buku</th>
-									<th>Penulis</th>
-									<th>Aksi</th>
-								</tr>
-							</thead>
-							<tbody></tbody>
-						</table>
+					<div class="relative md:w-auto w-full">
+						<input
+							type="text"
+							class="md:w-auto w-full search pl-3 pr-8 py-4 rounded-md"
+							placeholder="Cari judul atau penulis"
+						/>
+						<img
+							src="assets/icon-search.svg"
+							alt="icon-search"
+							class="absolute top-1/2 transform -translate-y-1/2"
+							style="width: 18px; height: auto; right: 12px"
+						/>
 					</div>
-					<div class="right-container-books"></div>
+					<button
+						class="tambah-buku md:w-auto w-full flex items-center justify-center gap-2 px-8 py-4 bg-primary-main rounded-lg"
+					>
+						<img
+							src="assets/icon-tambah.svg"
+							alt="icon tambah"
+							style="width: 15px; height: auto"
+						/>
+						<p class="text-white font-bold text-base">Tambah</p>
+					</button>
+				</div>
+			</div>
+			<div class="container-books flex md:flex-row flex-col gap-4 mt-6">
+				<!-- sudah selesai -->
+				<div class="left-container-books py-3 md:w-1/2 w-full">
+					<h5 class="text-neutral-100 font-black text-xl mb-2">
+						Belum Selesai
+					</h5>
+					<table class="md:w-auto w-full">
+						<thead>
+							<tr>
+								<th class="text-center">No</th>
+								<th>Judul Buku</th>
+								<th>Penulis</th>
+								<th class="text-center">Aksi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="px-3 py-6 td-no">
+									<p class="text-neutral-90 text-sm font-semibold">1</p>
+								</td>
+								<td class="px-4 py-6 td-judul">
+									<p class="text-neutral-90 text-sm font-semibold">
+										Ayat-Ayat Cinta
+									</p>
+								</td>
+								<td class="px-3 py-4 td-nama">
+									<p class="text-neutral-100 font-extrabold text-sm mb-1">
+										Devis Roster
+									</p>
+									<p class="text-primary-main font-bold text-xs">XII SIJA 2</p>
+								</td>
+								<td class="px-1 td-aksi">
+									<div class="flex flex-row items-center justify-center gap-3">
+										<button class="btn-action">
+											<img src="assets/Icon-edit.svg" alt="icon edit" />
+										</button>
+										<button class="btn-action">
+											<img src="assets/Icon-delete.svg" alt="icon delete" />
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="right-container-books py-3 md:w-1/2 w-full">
+					<h5 class="text-neutral-100 font-black text-xl mb-2">
+						Sudah Selesai
+					</h5>
+					<table class="md:w-auto w-full">
+						<thead>
+							<tr>
+								<th class="text-center">No</th>
+								<th>Judul Buku</th>
+								<th>Penulis</th>
+								<th class="text-center">Aksi</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="px-3 py-6 td-no">
+									<p class="text-neutral-90 text-sm font-semibold">1</p>
+								</td>
+								<td class="px-4 py-6 td-judul">
+									<p class="text-neutral-90 text-sm font-semibold">
+										Ayat-Ayat Cinta
+									</p>
+								</td>
+								<td class="px-3 py-4 td-nama">
+									<p class="text-neutral-100 font-extrabold text-sm mb-1">
+										Devis Roster
+									</p>
+									<p class="text-primary-main font-bold text-xs">XII SIJA 2</p>
+								</td>
+								<td class="px-1 td-aksi">
+									<div class="flex flex-row items-center justify-center gap-3">
+										<button class="btn-action">
+											<img src="assets/Icon-edit.svg" alt="icon edit" />
+										</button>
+										<button class="btn-action">
+											<img src="assets/Icon-delete.svg" alt="icon delete" />
+										</button>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</main>
+		<!-- modal tambah -->
+		<div class="modal-tambah-buku my-28 bg-white">
+			<div
+				class="modal-tambah-header w-full flex items-center justify-between p-6"
+			>
+				<p class="text-neutral-100 font-black text-xl">Tambah Buku</p>
+				<img
+					src="assets/icon-close.svg"
+					alt="icon close"
+					class="cursor-pointer"
+				/>
+			</div>
+			<div class="p-6 flex flex-row gap-6">
+				<!-- Judul Buku -->
+				<div class="w-full">
+					<p class="text-neutral-100 font-semibold text-xs mb-2">Judul Buku</p>
+					<input
+						type="text"
+						class="px-4 py-3 w-full rounded-lg judul-buku"
+						placeholder="Masukkan judul buku"
+					/>
+				</div>
+			</div>
+			<!-- Nama Penulis -->
+			<div class="flex items-center w-full gap-6 p-6">
+				<div class="input-nama-penulis w-1/2">
+					<p class="text-neutral-100 font-semibold text-xs mb-2">
+						Nama Penulis
+					</p>
+					<input
+						type="text"
+						class="px-4 py-3 w-full rounded-lg judul-buku"
+						placeholder="Masukkan Nama"
+					/>
+				</div>
+				<div class="input-tahun-penerbit w-1/2">
+					<p class="text-neutral-100 font-semibold text-xs mb-2">
+						Tahun Terbit
+					</p>
+					<input
+						type="text"
+						class="px-4 py-3 w-full rounded-lg judul-buku"
+						placeholder="Masukkan Tahun Terbit"
+					/>
+				</div>
+			</div>
+			<!-- Kategori -->
+			<div class="kategori">
+				<p class="text-neutral-100 font-semibold text-xs mb-2">Judul Buku</p>
+				<div class="flex w-full">
+					<label class="radio-card-left px-4 py-3 rounded-lg w-1/2">
+						<input type="radio" name="kategori" />
+						<h2 class="ayam-bakar">adasd</h2>
+						<span>Sudah Dibaca</span>
+					</label>
+					<label class="radio-card-right px-4 py-3 rounded-lg w-1/2">
+						<input type="radio" name="kategori" />
+						<span>Belum Dibaca</span>
+					</label>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
