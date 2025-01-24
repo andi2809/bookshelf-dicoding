@@ -285,16 +285,115 @@ td {
 	}
 }
 
-.modal-tambah-buku {
-	border-bottom: 1px solid var(--neutral-100);
+.modal-tambah-buku,
+.modal-edit-buku {
+	width: 80%;
+	max-width: 831px;
+	max-height: 680px;
+	position: fixed;
+	top: 25%;
+	left: 50%;
+	transform: translate(
+		-50%,
+		-50%
+	); /* Geser balik setengah lebar & tinggi elemen */
+	display: none;
+	z-index: 9999;
+	opacity: 0;
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.modal-tambah-buku.active {
+	display: block !important; /* Tampilkan modal */
+	opacity: 1 !important;
 }
 
-input::placeholder {
-	color: #b4b7c5;
-	font-size: 12px;
-	font-weight: 800;
+.modal-tambah-header {
+	border-bottom: 1px solid var(--neutral-60);
 }
 .judul-buku {
 	outline: none !important;
 	border: 1px solid var(--neutral-50);
+}
+input[type="radio"] {
+	display: none;
+}
+input::placeholder {
+	color: #b4b7c5;
+	font-size: 12px;
+	font-weight: 700;
+	font-family: Nunito, sans-serif;
+}
+label.radio-card {
+	border: 2px solid #f1f2f4;
+	display: block;
+	transition: all 0.2s ease-in-out;
+	cursor: pointer;
+}
+.radio-card span {
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--neutral-60);
+	transition: all 0.2s ease-in-out;
+}
+input {
+	color: black;
+	font-weight: 600;
+}
+#sudahDibaca:checked + label > span {
+	color: #237832;
+}
+#belumDibaca:checked + label > span {
+	color: #8a231d;
+}
+.radio-left:hover span,
+.radio-left:hover,
+#sudahDibaca:checked + label {
+	color: #237832;
+	border-color: #237832;
+}
+.radio-right:hover,
+.radio-right:hover span,
+#belumDibaca:checked + label {
+	color: #8a231d;
+	border-color: #8a231d;
+}
+#sudahDibacaEdit:checked + label > span {
+	color: #237832;
+}
+#belumDibacaEdit:checked + label > span {
+	color: #8a231d;
+}
+.radio-left:hover span,
+.radio-left:hover,
+#sudahDibacaEdit:checked + label {
+	color: #237832;
+	border-color: #237832;
+}
+.radio-right:hover,
+.radio-right:hover span,
+#belumDibacaEdit:checked + label {
+	color: #8a231d;
+	border-color: #8a231d;
+}
+.radio-left input:checked {
+	border-color: #237832;
+}
+.button-batal {
+	box-sizing: border-box;
+	border: 2px solid #e7e8ec;
+	color: var(--neutral-90);
+	transition: all 0.2s;
+	font-weight: 700;
+	font-size: 14px;
+}
+.button-batal:hover {
+	border-color: var(--neutral-60);
+}
+.button-submit {
+	background-color: #f36f20;
+	color: white;
+	font-weight: 700;
+	font-size: 14px;
+}
+.button-submit {
 }
