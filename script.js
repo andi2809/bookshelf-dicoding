@@ -53,18 +53,38 @@ tambahBuku.addEventListener("click", () => {
 });
 
 // Render data berdasarkan status
-function renderData() {
-	const dataSudahDibaca = data.filter((book) => book.isComplete === true);
-	const dataBelumDibaca = data.filter((book) => book.isComplete === false);
+function renderData(isSearch = null) {
+	console.log(isSearch);
 
-	document.getElementById("jumlahBukuBelumDibaca").innerText =
-		dataBelumDibaca.length;
-	document.getElementById("jumlahBukuSudahDibaca").innerText =
-		dataSudahDibaca.length;
-	document.getElementById("jumlahBukuTotal").innerText = data.length;
+	if (isSearch) {
+		console.log("Lebih le");
 
-	renderTasks(containerSudahDibaca, dataSudahDibaca);
-	renderTasks(containerBelumDibaca, dataBelumDibaca);
+		const dataSudahDibaca = isSearch.filter((book) => book.isComplete === true);
+		const dataBelumDibaca = isSearch.filter(
+			(book) => book.isComplete === false
+		);
+		document.getElementById("jumlahBukuBelumDibaca").innerText =
+			dataBelumDibaca.length;
+		document.getElementById("jumlahBukuSudahDibaca").innerText =
+			dataSudahDibaca.length;
+		document.getElementById("jumlahBukuTotal").innerText = data.length;
+
+		renderTasks(containerSudahDibaca, dataSudahDibaca);
+		renderTasks(containerBelumDibaca, dataBelumDibaca);
+	} else {
+		console.log("kurang le");
+
+		const dataSudahDibaca = data.filter((book) => book.isComplete === true);
+		const dataBelumDibaca = data.filter((book) => book.isComplete === false);
+		document.getElementById("jumlahBukuBelumDibaca").innerText =
+			dataBelumDibaca.length;
+		document.getElementById("jumlahBukuSudahDibaca").innerText =
+			dataSudahDibaca.length;
+		document.getElementById("jumlahBukuTotal").innerText = data.length;
+
+		renderTasks(containerSudahDibaca, dataSudahDibaca);
+		renderTasks(containerBelumDibaca, dataBelumDibaca);
+	}
 }
 // Fungsi untuk menampilkan data di dalam elemen HTML
 function renderTasks(container, tasks) {
@@ -173,12 +193,6 @@ function deleteData(id) {
 	// Cari elemen berdasarkan ID dan filter untuk menyisakan elemen lain
 	const updatedData = data.filter((book) => book.id !== parseInt(id));
 
-	// Periksa apakah data berubah setelah penghapusan
-	if (updatedData.length === data.length) {
-		alert("Buku tidak ditemukan.");
-		return;
-	}
-
 	// Update localStorage dan array data
 	data.length = 0;
 	data.push(...updatedData);
@@ -186,6 +200,7 @@ function deleteData(id) {
 
 	// Render ulang data
 	renderData();
+	clearForm();
 }
 
 // Fungsi untuk membersihkan form
@@ -204,6 +219,31 @@ document
 	.querySelectorAll(".close-modal-tambah-buku")
 	.forEach((button) => button.addEventListener("click", clearForm));
 
+const inputSearch = document.getElementById("search");
+
+inputSearch.addEventListener("keyup", (event) => {
+	const dataSearch = [];
+	data.forEach((element) => {
+		if (
+			element.author.toLowerCase().includes(event.target.value) ||
+			element.title.toLowerCase().includes(event.target.value)
+		) {
+			dataSearch.push(element);
+			console.log(element);
+		}
+	});
+	renderData(dataSearch);
+
+	// console.log(dataSearch.filter((book) => book.isComplete === true));
+	// console.log(dataSearch.filter((book) => book.isComplete === false));
+});
+
 // Render data saat halaman dimuat
-renderData();
-clearForm();
+window.addEventListener("load", () => {
+	renderData();
+	clearForm();
+});
+
+// EDIT DATA
+
+// Search Data
